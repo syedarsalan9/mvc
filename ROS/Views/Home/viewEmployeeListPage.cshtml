@@ -30,6 +30,9 @@
         </tbody>
     </table>
 </div>
+    <select disabled id="breeds">
+        <option> Please Select</option>
+    </select>
 <script src="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css"></script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -61,6 +64,21 @@
             }
         });
         
+        $.ajax({
+            url: "/Home/EmployeeList",
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                console.log(JSON.parse(response));
+                $("#breeds").attr('disabled', false);
+                var resp = JSON.parse(response);
+                resp.forEach(function(key, value) {
+                    console.log(key);
+                    $("#breeds").append('<option value=' + key + '>' + value + '</option>');
+                });
+            
+            }
+        });
     });
 </script>
 
